@@ -1,0 +1,11 @@
+.form {
+    color: grey;
+}
+.form input {
+    color: grey;
+    height: 40px;
+    width:100%;
+    box-sizing:border-box;
+    border-radius: 0px;
+    border: 1px solid grey;
+}

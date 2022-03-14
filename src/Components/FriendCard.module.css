@@ -1,0 +1,50 @@
+ .card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid grey;
+  }
+  
+  .card_details {
+    display: block;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex: 1;
+    padding:5px
+  }
+  
+  .card h2 {
+    color: #3a3a3a;
+    flex: 1;
+    font-size: 20px;
+    margin: 0px;
+  }
+
+  .card h3 {
+    color: darkgray;
+    font-size: 1rem;
+    flex: 1;
+    font-size: 15px;
+    margin: 0px;
+    font-weight: 400
+  }
+  .card button {
+    width:40px;
+    margin:0.5rem;
+    height: 40px;
+    cursor: pointer;
+  }
+ 
+  
+
+.star {
+    color: orange;
+    font-size: 22px;
+    content: \&#9734;
+}
+.star1:before {
+    content : '★'
+}
+  
