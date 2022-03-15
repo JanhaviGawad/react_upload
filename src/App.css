@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  margin: 0 auto;
+  margin: 5rem auto;
   width:50%;
 }
 
@@ -41,13 +41,14 @@
 
 .title {
   display: block;
-  height: 30px;
+  height: 60px;
   width: 100%;
-  background-color: darkgray;
+  background-color: teal;
 }
 
 .title label {
  vertical-align: middle;
- font-size: 20px;
+ font-size: 35px;
+ color: antiquewhite;
  font-weight: 600;
 }

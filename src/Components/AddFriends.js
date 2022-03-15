@@ -1,7 +1,9 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import classes from "./AddFriends.module.css";
+import FriendsContext from "../store/store-context";
 
 const AddFriends = (props) => {
+  const friendCtx = useContext(FriendsContext);
   const [nameIsValid, setNameIsValid] = useState(true);
   const [friendName, setFriendName] = useState("");
   const friendInputRef = useRef();
@@ -13,17 +15,15 @@ const AddFriends = (props) => {
       if (enteredName.trim().length === 0) {
         setNameIsValid(false);
         return;
-      }
-      console.log("added name");
-      props.onAddNewFriend(enteredName);
+      } else setNameIsValid(true);
+      friendCtx.onAddNewFriend(enteredName);
       setFriendName("");
     }
   };
 
   const nameChangeHandler = (event) => {
-    setFriendName(event.target.value);  
+    setFriendName(event.target.value);
   };
-
 
   return (
     <form className={classes.form}>

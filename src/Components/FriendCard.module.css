@@ -1,8 +1,9 @@
  .card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid grey;
+  display: flex;
+  justify-content: space-between;
+  background-color: aliceblue;
+  align-items: center;
+  border: 1px solid gray;
   }
   
   .card_details {
@@ -16,9 +17,9 @@
   }
   
   .card h2 {
-    color: #3a3a3a;
-    flex: 1;
-    font-size: 20px;
+    color: dimgrey;
+    flex: 1 1;
+    font-size: 22px;
     margin: 0px;
   }
 
@@ -31,20 +32,21 @@
     font-weight: 400
   }
   .card button {
-    width:40px;
-    margin:0.5rem;
+    
+    width: 40px;
+    margin: 0.5rem;
     height: 40px;
+    background-color: lightgray;
     cursor: pointer;
+    border: none;
+    border-radius: 3px;
   }
  
   
 
 .star {
-    color: orange;
     font-size: 22px;
     content: \&#9734;
 }
-.star1:before {
-    content : '★'
-}
+
   

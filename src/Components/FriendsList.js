@@ -1,100 +1,54 @@
 import styles from "./FriendsList.module.css";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import FriendCard from "./FriendCard";
 import AddFriends from "./AddFriends";
 import Pagination from "./UI/Pagination";
 import SearchBox from "./UI/SearchBox";
-const dummyData = [
-  { name: "Rahul Gupta", id: 1, fav: "true" },
-  { name: "Shivangi Sharma", id: 2, fav: "false" },
-  { name: "Rohit Sharma", id: 3, fav: "false" },
-];
-let count = dummyData.length+1;
+import FriendsContext from "../store/store-context";
+
 const FriendsList = () => {
-  const [friendsData, setFriendsData] = useState(dummyData);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(4);
+  const friendCtx = useContext(FriendsContext);
   const [searchText, setSearchText] = useState("");
 
-  const onAddNewFriend = (enteredName) => {
-    setFriendsData((prevList) => {
-      const updatedList = [...prevList];
-      updatedList.push({ name: enteredName, id: count++, fav: false });
-      return updatedList;
-    });
-  };
+  const indexOfLastPost = friendCtx.currentPage * friendCtx.postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - friendCtx.postsPerPage;
+  const currentPosts = friendCtx.items.slice(indexOfFirstPost, indexOfLastPost);
 
-  const deleteFriendHandler = (friendId) => {
-    setFriendsData((prevGoals) => {
-      const updatedList = prevGoals.filter(
-        (friends) => friends.id !== friendId
-      );
-      return updatedList;
-    });
-  };
-
-  function compare(a, b) {
-    if (a.fav < b.fav) {
-      return 1;
-    }
-    if (a.fav > b.fav) {
-      return -1;
-    }
-    return 0;
-  }
-
-  const favFriendHandler = (friendId) => {
-    setFriendsData((prevFriends) => {
-      const updatedList = prevFriends.map((friend) => {
-        if (friend.id == friendId) {
-          if(friend.fav=="true")
-            friend.fav="false";
-          else 
-          friend.fav="true";
-        }
-
-        return friend;
-      });
-      updatedList.sort(compare);
-      return updatedList;
-    });
-  };
 
   const searchTextValue = (text) => {
     setSearchText(text.toLocaleLowerCase());
   };
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = friendsData.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const paginate=(number)=>{
+    friendCtx.onPaginate(number);
+
+  }
 
   return (
     <>
-      <AddFriends onAddNewFriend={onAddNewFriend}></AddFriends>
+      <AddFriends ></AddFriends>
       <SearchBox onSearch={searchTextValue}></SearchBox>
       <section className={styles.FriendDetails}>
-        {currentPosts
-          .filter((val) => {
-            if (searchText == "") return val;
+        {currentPosts.filter((val) => {
+            if (searchText == "") 
+              return val;
             else if (val.name.toLocaleLowerCase().includes(searchText))
               return val;
-          })
-          .map((item) => {
+              return false;
+          }).map((item) => {
             return (
               <FriendCard
                 key={item.id}
                 fav={item.fav}
                 name={item.name}
                 id={item.id}
-                onDelete={deleteFriendHandler}
-                onFav={favFriendHandler}
               ></FriendCard>
             );
           })}
       </section>
       <Pagination
-        postsPerPage={postsPerPage}
-        totalPosts={friendsData.length}
+        postsPerPage={friendCtx.postsPerPage}
+        totalPosts={friendCtx.items.length}
         paginate={paginate}
       ></Pagination>
     </>

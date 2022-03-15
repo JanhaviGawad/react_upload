@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import styles from "./FriendCard.module.css";
+import FriendsContext from "../store/store-context";
 
 const FriendCard = (props) => {
-  const [isFav, setIsFav] = useState(props.fav=="true");
+  const friendCtx = useContext(FriendsContext);
+  const [isFav, setIsFav] = useState(props.fav);
 
   const deleteHandler = () => {
-    props.onDelete(props.id);
+    friendCtx.onDeleteFriend(props.id);
   };
   const favHandler = (event) => {
-    props.onFav(props.id);
+    friendCtx.onFavFriend(props.id);
     setIsFav((prev) => {
       if (prev == true) return false;
       else return true;
